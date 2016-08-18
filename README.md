@@ -11,3 +11,19 @@ Using the GARFIELD registry, two prediction models were built to aid in predicti
 2. Stroke
 
 This repository serves as the codebase for the implementation of these two models. The goal is to build two microservices that allow users (both programmatic and GUI-based) to interface with the algorithms in an easy and reproducible manner. These microservices will be built using Python and Docker.
+
+## Environment
+We will be using [Docker](https://www.docker.com) to encapsulate and deploy our web app(s). Due to the current state of rocker/docker environments, we will use two images/containers for this project:
+1. rocker/rstudio - for development of code
+2. rocker/shiny - for hosting the application
+
+Once this repo is cloned and the working directory is set to it's local path, follow these instructions to instantiate the container(s) that host the app:
+```
+#rstudio server environment
+docker run -d -p 8887:8787 -v $(pwd)/shinyApps:/home/rstudio rocker/rstudio
+
+#shiny server environment
+docker run -d -p 3338:3838 \
+-v $(pwd)/shinyApps:/srv/shiny-server \
+rocker/shiny
+```
