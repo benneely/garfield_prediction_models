@@ -119,3 +119,6 @@
 1471546861529:mappingType
 1471607473878:shiny::runApp('garfield-bleeding')
 1471607492639:runApp('garfield-bleeding')
+1471609027770:runApp('garfield-stroke')
+1471610946815:iris
+1471611500249:runApp('garfield-stroke')

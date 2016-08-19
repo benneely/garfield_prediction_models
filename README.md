@@ -24,6 +24,7 @@ docker run -d -p 8887:8787 -v $(pwd)/shinyApps:/home/rstudio rocker/rstudio
 
 #shiny server environment
 docker run -d -p 3338:3838 \
+--restart=always \
 -v $(pwd)/shinyApps:/srv/shiny-server \
 rocker/shiny
 ```

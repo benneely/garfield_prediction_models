@@ -1,3 +1,6 @@
+~/garfield-stroke/ui.R
+~/garfield-stroke/server.R
+~/garfield-stroke/global.R
 ~/garfield-bleeding/global.R
 ~/garfield-bleeding/server.R
 ~/garfield-bleeding/ui.R
