@@ -1,23 +1,19 @@
-palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
-  "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+library(shiny)
 
-shinyServer(function(input, output, session) {
+# Rely on the 'WorldPhones' dataset in the datasets
+# package (which generally comes preloaded).
+library(datasets)
 
-  # Combine the selected variables into a new data frame
-  selectedData <- reactive({
-    iris[, c(input$xcol, input$ycol)]
+# Define a server for the Shiny app
+shinyServer(function(input, output) {
+
+  # Fill in the spot we created for a plot
+  output$phonePlot <- renderPlot({
+
+    # Render a barplot
+    barplot(WorldPhones[,input$region]*1000,
+            main=input$region,
+            ylab="Number of Telephones",
+            xlab="Year")
   })
-
-  clusters <- reactive({
-    kmeans(selectedData(), input$clusters)
-  })
-
-  output$plot1 <- renderPlot({
-    par(mar = c(5.1, 4.1, 0, 1))
-    plot(selectedData(),
-         col = clusters()$cluster,
-         pch = 20, cex = 3)
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
-  })
-
 })
