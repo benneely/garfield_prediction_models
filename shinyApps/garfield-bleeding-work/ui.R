@@ -9,7 +9,7 @@ shinyUI(fluidPage(
   list(tags$head(
     HTML('<link rel="icon", href="GARFIELD_AF_logo.png", type="image/png" />'))),
   div(style="padding: 0px 0px; width: '100%'",
-      titlePanel(title="", windowTitle="TRILOGY ACS")
+      titlePanel(title="", windowTitle="GARFIELD-AF")
   ),
   headerPanel(
     title=div(img(src="GARFIELD_AF_logo.png",width="180",height="50"), "Bleeding Risk Model", align="left"),
