@@ -20,11 +20,13 @@ We will be using [Docker](https://www.docker.com) to encapsulate and deploy our 
 Once this repo is cloned and the working directory is set to it's local path, follow these instructions to instantiate the container(s) that host the app:
 ```
 #rstudio server environment
-docker run -d -p 8887:8787 -v $(pwd)/shinyApps:/home/rstudio rocker/rstudio
+docker build -t rocker/rstudio-garfield .
+docker run -d -p 8887:8787 -v $(pwd)/shinyApps:/home/rstudio rocker/rstudio-garfield
 
 #shiny server environment
+docker build -f Dockerfile.shiny -t rocker/shiny-garfield .
 docker run -d -p 3338:3838 \
 --restart=always \
 -v $(pwd)/shinyApps:/srv/shiny-server \
-rocker/shiny
+rocker/shiny-garfield
 ```
