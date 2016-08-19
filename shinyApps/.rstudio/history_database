@@ -1,1 +1,121 @@
 1471485244202:shiny::runApp('garfield-bleeding')
+1471539912254:shiny::runApp('garfield-bleeding')
+1471540613068:runApp('garfield-bleeding')
+1471540637649:runApp('garfield-bleeding')
+1471540753398:runApp('garfield-bleeding')
+1471540761466:shiny::runApp('garfield-bleeding')
+1471540986244:runApp('garfield-bleeding')
+1471541267963:library(XML)
+1471541267969:library(shiny)
+1471541267977:library(ggplot2)
+1471541267988:library(scales)
+1471541267994:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471541268004:#Additional functions needed for this app
+1471541268011:#Function needed in server.R to coerce user input to numeric data.frame
+1471541268018:#Convert xml objects to data.frame
+1471541268024:xml2dfNAMED <- function(xmlRooters,value,name,char=F) {
+1471541268030:QQ <- vector("list",xmlSize(xmlRooters))
+1471541268038:for(i in 1:xmlSize(xmlRooters)){
+1471541268043:QQ[[ i ]] <- xmlAttrs(xmlRooters[[i]])[[value]]
+1471541268049:names(QQ[[ i ]]) <- xmlAttrs(xmlRooters[[i]])[[name]]
+1471541268054:}
+1471541268060:a <- unlist(QQ)
+1471541268066:b <- data.frame(as.list(a))
+1471541268074:if (char==F) {
+1471541268079:c <- data.frame(lapply(b[1,], function(x) as.numeric(levels(x))[x]))
+1471541268084:return(c)
+1471541268089:} else {
+1471541268093:return(b)
+1471541268099:}
+1471541268103:}
+1471541268108:checkandconvert <- function(x) {
+1471541268113:if (betaType[names(x)]=="continuous") {return (as.numeric(x))}
+1471541268118:else if (betaType[names(x)]=="categorical") {
+1471541268122:if (x==mappingType[names(x)]) {return (as.numeric(1))}
+1471541268126:else {return (as.numeric(0))}
+1471541268130:}
+1471541268135:}
+1471541268140:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471541268145:#Establish a connection with the database
+1471541268149:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471541268154:#Let's put together a xml object so that we can use certain functions to parse
+1471541268159:allFiles <- list.files()
+1471541268165:pmmlFiles <- allFiles[grep('*.pmml',allFiles)]
+1471541268170:xmlfile <- xmlParse(pmmlFiles[[1]])
+1471541268176:xmltop <- xmlRoot(xmlfile) #gives content of root
+1471541276710:pmmlFiles
+1471541283975:allFiles
+1471541753630:runApp('garfield-bleeding')
+1471541772506:runApp('garfield-bleeding')
+1471542453700:runApp('garfield-bleeding')
+1471544120305:shiny::runApp('garfield-bleeding')
+1471544307058:runApp('garfield-bleeding')
+1471544367665:runApp('garfield-bleeding')
+1471544450168:runApp('garfield-bleeding')
+1471544469467:runApp('garfield-bleeding')
+1471544526563:runApp('garfield-bleeding')
+1471544610564:getwd()
+1471544628630:setwd('/home/rstudio/garfield-bleeding')
+1471544636438:library(XML)
+1471544636444:library(shiny)
+1471544636450:library(ggplot2)
+1471544636456:library(scales)
+1471544636462:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471544636467:#Additional functions needed for this app
+1471544636473:#Function needed in server.R to coerce user input to numeric data.frame
+1471544636478:#Convert xml objects to data.frame
+1471544636482:xml2dfNAMED <- function(xmlRooters,value,name,char=F) {
+1471544636487:QQ <- vector("list",xmlSize(xmlRooters))
+1471544636492:for(i in 1:xmlSize(xmlRooters)){
+1471544636497:QQ[[ i ]] <- xmlAttrs(xmlRooters[[i]])[[value]]
+1471544636501:names(QQ[[ i ]]) <- xmlAttrs(xmlRooters[[i]])[[name]]
+1471544636506:}
+1471544636512:a <- unlist(QQ)
+1471544636516:b <- data.frame(as.list(a))
+1471544636521:if (char==F) {
+1471544636527:c <- data.frame(lapply(b[1,], function(x) as.numeric(levels(x))[x]))
+1471544636533:return(c)
+1471544636537:} else {
+1471544636542:return(b)
+1471544636546:}
+1471544636550:}
+1471544636556:checkandconvert <- function(x) {
+1471544636560:if (betaType[names(x)]=="continuous") {return (as.numeric(x))}
+1471544636565:else if (betaType[names(x)]=="categorical") {
+1471544636569:if (x==mappingType[names(x)]) {return (as.numeric(1))}
+1471544636574:else {return (as.numeric(0))}
+1471544636579:}
+1471544636583:}
+1471544640754:list.files()
+1471544646718:allFiles <- list.files()
+1471544646726:pmmlFiles <- allFiles[grep('*.pmml',allFiles)]
+1471544646736:xmlfile <- xmlParse(pmmlFiles[[1]])
+1471544646770:xmltop <- xmlRoot(xmlfile) #gives content of root
+1471544650187:dict <- xmltop[["DataDictionary"]]
+1471544654579:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["ParameterList"]],value="referencePoint",name="label",char=F)
+1471544678163:a = c("test"=3,"best"=4)
+1471544679274:a
+1471544694676:type(a)
+1471545277272:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["PPMatrix"]], value="predictorName", name="parameterName",char=T)
+1471545309529:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["PPMatrix"]], value="value", name="predictorName",char=T)
+1471545334478:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["DataDictionary"]]), value="optype", name="name",char=T)
+1471545417551:c("country"="categorical","age"="continuous","sbp"="continuous","hxhf"="categorical","ckd"="categorical","sbp"="categorical","ap"="categorical")
+1471545474850:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["ParamMatrix"]], value="beta", name="parameterName",char=F)
+1471545906436:betas <- c("age"=0.03752473,"australia"=-0.218473958,"austria"=0.159933164,"belgium"=-0.418820175,"brazil"=-0.489144157,"canada"=-1.005531926,"chile"=0.041576453,
+1471545906445:"denmark"=-0.260201289,"spain"=-0.560461262,"finland"=0.410690944,"UK"=-0.525918093,"hungary"=-0.564631916,"italy"=-0.58668433,"korea"=-0.234378602,
+1471545906452:"netherlands"=0.174333537,"norway"=0.42991423,"thailand"=-0.497083762,"hxhf"=0.8810468,"ckd"=0.658942324,"sbp"=0.00623828,"ap"=0.517418301)
+1471545924136:colnames(referencePoints)
+1471545935887:as.numeric(unname(sapply(xmlChildren(xmlChildren(xmltop[["GeneralRegressionModel"]])[["BaseCumHazardTables"]]), xmlGetAttr, "time")))
+1471545951686:zz = c(123,3542,345345,34534,23423)
+1471545952402:zz
+1471546321275:as.numeric(unname(sapply(xmlChildren(xmlChildren(xmltop[["GeneralRegressionModel"]])[["BaseCumHazardTables"]]), xmlGetAttr, "cumHazard")))
+1471546668592:mlGetAttr(xmltop[["Header"]],name='description')
+1471546672406:xmlGetAttr(xmltop[["Header"]],name='description')
+1471546694388:getNodeSet(xmlfile,"//PMML:DerivedField",c(PMML="http://www.dmg.org/PMML-4_2"))
+1471546728873:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["DataDictionary"]]), value="optype", name="name",char=T)
+1471546734232:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["PPMatrix"]], value="value", name="predictorName",char=T)
+1471546748723:xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["PPMatrix"]], value="predictorName", name="parameterName",char=T)
+1471546857155:mappingType <- xml2dfNAMED(xmlRooters=xmlChildren(xmltop[["GeneralRegressionModel"]])[["PPMatrix"]], value="value", name="predictorName",char=T)
+1471546861529:mappingType
+1471607473878:shiny::runApp('garfield-bleeding')
+1471607492639:runApp('garfield-bleeding')
