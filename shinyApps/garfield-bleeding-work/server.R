@@ -10,28 +10,28 @@ shinyServer(function(input, output, session) {
   #Check User Input, if exceeds limits scale 
   #up / back
   #==========================================
-  # observe({
-  #   if (is.null(input$age)) {
-  #     return(NULL)
-  #   } else {
-  #   for(i in 1:length(upper)){
-  # 
-  #         if (  eval(parse(text = paste("input$", names(upper)[i], sep="")))
-  #               >
-  #               as.numeric(upper[i])) {
-  #           eval(parse(text = paste0("updateNumericInput(session,\"",names(upper)[i],"\", value = ",
-  #                                    as.numeric(upper[i]),")")))
-  #         } else if (
-  #               eval(parse(text = paste("input$", names(upper)[i], sep="")))
-  #               <
-  #               as.numeric(lower[i])
-  #           ) {
-  #           eval(parse(text = paste0("updateNumericInput(session,\"",names(upper)[i],"\", value = ",
-  #                                    as.numeric(lower[i]),")")))
-  #         }
-  #   }
-  #   }
-  # })
+  observe({
+    if (is.null(input$age)) {
+      return(NULL)
+    } else {
+    for(i in 1:length(upper)){
+
+          if (  eval(parse(text = paste("input$", names(upper)[i], sep="")))
+                >
+                as.numeric(upper[i])) {
+            eval(parse(text = paste0("updateNumericInput(session,\"",names(upper)[i],"\", value = ",
+                                     as.numeric(upper[i]),")")))
+          } else if (
+                eval(parse(text = paste("input$", names(upper)[i], sep="")))
+                <
+                as.numeric(lower[i])
+            ) {
+            eval(parse(text = paste0("updateNumericInput(session,\"",names(upper)[i],"\", value = ",
+                                     as.numeric(lower[i]),")")))
+          }
+    }
+    }
+  })
   #==========================================
   #Create a dynamic data.frame from usr input
   #==========================================
@@ -78,7 +78,7 @@ shinyServer(function(input, output, session) {
   # this calculation is done in accordance with the PMML Specification
     r                 <- as.matrix(c[same])                 %*% (as.matrix(betas[same]))
     s                 <- t(as.matrix(referencePoints[same2]))  %*% (as.matrix(betas[same2]))
-    S_t               <- baseHaz*exp(r-s)
+    S_t               <- baseHaz**exp(r-s)
     #S_t               <- exp(-H_t)
     C_t               <- 1-S_t
     final             <- data.frame("Time"=time,

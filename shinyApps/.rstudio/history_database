@@ -1068,3 +1068,164 @@
 1471636420551:runApp()
 1471636448135:runApp()
 1471636566178:runApp()
+1471893990153:exp(0)
+1471894133909:applyTransformations <- function(x) {
+1471894133916:if (names(x)=="sbp") {
+1471894133922:if (x < 120) {
+1471894133925:return(120)
+1471894133932:} else {
+1471894133937:return(x)
+1471894133944:}
+1471894133951:} else {
+1471894133957:return(x)
+1471894133962:}
+1471894133967:}
+1471894133973:checkandconvert <- function(x) {
+1471894133977:if (betaType[names(unlist(x))]=="continuous") {return (as.numeric(x))}
+1471894133982:else if (betaType[names(unlist(x))]=="categorical") {
+1471894133986:if (names(unlist(x))=="country") {
+1471894133990:result = c("Australia"=0,"Austria"=0,"Belgium"=0,"Brazil"=0,"Canada"=0,"Chile"=0,"Denmark"=0,"Spain"=0,"Finland"=0,"UK"=0,"Hungary"=0,"Italy"=0,
+1471894133995:"Korea"=0,"Netherlands"=0,"Norway"=0,"Thailand"=0,"USA"=0)
+1471894134000:indx = which(x==names(result))
+1471894134004:result[indx]=1
+1471894134009:return(result)
+1471894134013:} else {
+1471894134017:if (x=="Yes") {
+1471894134022:result = eval(parse(text=paste0('c("',names(unlist(x)),'"=1)')))
+1471894134026:return(result)
+1471894134030:} else {
+1471894134034:result = eval(parse(text=paste0('c("',names(unlist(x)),'"=0)')))
+1471894134038:return(result)
+1471894134043:}
+1471894134047:}
+1471894134051:}
+1471894134055:}
+1471894262536:library(shiny)
+1471894262867:library(ggplot2)
+1471894263032:library(scales)
+1471894263056:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471894263060:#Additional functions needed for this app
+1471894263064:#Function needed in server.R to coerce user input to numeric data.frame
+1471894263067:#Convert xml objects to data.frame
+1471894263074:applyTransformations <- function(x) {
+1471894263078:if (names(x)=="sbp") {
+1471894263082:if (x < 120) {
+1471894263088:return(120)
+1471894263093:} else {
+1471894263097:return(x)
+1471894263102:}
+1471894263106:} else {
+1471894263111:return(x)
+1471894263117:}
+1471894263121:}
+1471894263127:checkandconvert <- function(x) {
+1471894263132:if (betaType[names(unlist(x))]=="continuous") {return (as.numeric(x))}
+1471894263136:else if (betaType[names(unlist(x))]=="categorical") {
+1471894263140:if (names(unlist(x))=="country") {
+1471894263145:result = c("Australia"=0,"Austria"=0,"Belgium"=0,"Brazil"=0,"Canada"=0,"Chile"=0,"Denmark"=0,"Spain"=0,"Finland"=0,"UK"=0,"Hungary"=0,"Italy"=0,
+1471894263150:"Korea"=0,"Netherlands"=0,"Norway"=0,"Thailand"=0,"USA"=0)
+1471894263157:indx = which(x==names(result))
+1471894263162:result[indx]=1
+1471894263169:return(result)
+1471894263175:} else {
+1471894263180:if (x=="Yes") {
+1471894263185:result = eval(parse(text=paste0('c("',names(unlist(x)),'"=1)')))
+1471894263192:return(result)
+1471894263196:} else {
+1471894263202:result = eval(parse(text=paste0('c("',names(unlist(x)),'"=0)')))
+1471894263207:return(result)
+1471894263212:}
+1471894263219:}
+1471894263222:}
+1471894263230:}
+1471894263237:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471894263240:#Establish a connection with the database
+1471894263261:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471894263267:#Let's put together a xml object so that we can use certain functions to parse
+1471894263273:#allFiles <- list.files()
+1471894263278:#pmmlFiles <- allFiles[grep('*.pmml',allFiles)]
+1471894263285:#xmlfile <- xmlParse(pmmlFiles[[1]])
+1471894263299:#xmltop <- xmlRoot(xmlfile) #gives content of root
+1471894263304:#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1471894263308:#Get data elements in R friendly formats (i.e. data.frames / numeric vectors)
+1471894263313:#dict <- xmltop[["DataDictionary"]]
+1471894263318:referencePoints <- c("country"=0,"age"=60,"sbp"=120,"hxhf"=0,"ckd"=0,"sbp"=120,"ap"=0)
+1471894263326:betaType <- c("country"="categorical","age"="continuous","sbp"="continuous","hxhf"="categorical","ckd"="categorical","ap"="categorical")
+1471894263332:betas <- c("age"=0.03752473,"Australia"=-0.218473958,"Austria"=0.159933164,"Belgium"=-0.418820175,"Brazil"=-0.489144157,"Canada"=-1.005531926,"Chile"=0.041576453,
+1471894263340:"Denmark"=-0.260201289,"Spain"=-0.560461262,"Finland"=0.410690944,"UK"=-0.525918093,"Hungary"=-0.564631916,"Italy"=-0.58668433,"Korea"=-0.234378602,
+1471894263344:"Netherlands"=0.174333537,"Norway"=0.42991423,"Thailand"=-0.497083762,"USA"=0,"hxhf"=0.8810468,"ckd"=0.658942324,"sbp"=0.00623828,"ap"=0.517418301)
+1471894263349:upper = c("age"=105,"sbp"=270,"dpb"=180)
+1471894263355:lower = c("age"=18,"sbp"=40,"dbp"=26)
+1471894263360:time <- c(0,3,4,5,6,9,10,11,12,13,15,18,20,21,23,24,30,31,32,34,35,36,39,40,46,49,51,52,54,56,57,59,63,65,69,70,71,72,74,75,78,80,84,85,88,89,90,93,98,99,101,102,104,108,
+1471894263364:109,110,111,113,114,115,119,120,122,124,125,126,131,137,138,148,152,154,157,158,159,161,162,163,164,166,168,171,175,182,184,187,188,192,193,196,198,205,206,212,
+1471894263377:214,216,219,222,223,228,229,231,232,235,236,244,246,247,250,258,260,261,262,268,271,272,273,276,280,282,283,284,285,291,295,296,298,301,303,305,307,313,314,317,
+1471894263383:320,323,330,334,335,338,342,352,353,355,356,357,359,360,361)
+1471894263387:baseHaz <- c(1,0.999956967,0.999913915,0.999870835,0.999827747,0.99978462,0.99965514,0.999611955,0.999525582,0.999395932,0.999352678,0.999309374,0.99926605,0.99917939,
+1471894263394:0.999092583,0.999049162,0.998962165,0.998918657,0.998875143,0.998831617,0.998788065,0.998744491,0.99870087,0.99865721,0.998569806,0.998526073,0.998482325,
+1471894263398:0.998394832,0.998351065,0.998307297,0.998263501,0.998219678,0.998175827,0.998088067,0.998044174,0.997956345,0.997868499,0.997824543,0.997780558,0.99773657,
+1471894263404:0.997648516,0.997560406,0.997516296,0.997428042,0.997383838,0.997339622,0.997295377,0.997251098,0.997162297,0.997073466,0.99698457,0.996940099,0.996895594,
+1471894263408:0.996850999,0.996806358,0.996761684,0.996716975,0.996672216,0.996627398,0.996582559,0.996537539,0.99644739,0.996356901,0.996311357,0.996265713,0.99622004,
+1471894263415:0.996174241,0.996128343,0.99608242,0.996036377,0.99599031,0.995944212,0.99585197,0.995805832,0.995759688,0.995667348,0.995621171,0.995482586,0.995436376,
+1471894263422:0.995343877,0.995297613,0.995251304,0.995204946,0.99515854,0.995112116,0.995065681,0.995019244,0.994972782,0.99487986,0.99483336,0.994786846,0.994740173,
+1471894263426:0.994646747,0.994599723,0.994505472,0.994458172,0.994363259,0.994315669,0.994268021,0.994220044,0.994123875,0.994075544,0.993978703,0.993929955,0.993881137,
+1471894263431:0.993831233,0.993780456,0.993729109,0.99367771,0.993574539,0.993522899,0.993471247,0.993419568,0.993367791,0.993315988,0.993212372,0.993160524,0.99310856,
+1471894263437:0.993056507,0.993004438,0.99295237,0.992900278,0.992848173,0.992796009,0.992691628,0.992587202,0.992534977,0.99248272,0.992430438,0.992378156,0.992325818,
+1471894263441:0.992273399,0.992220962,0.992168495,0.992116026,0.992063545,0.991957917,0.991904797,0.991851599,0.991798146,0.991744251,0.991689318,0.991634134,0.991523409,
+1471894263446:0.99146796,0.991356793,0.991300902,0.991244751,0.991188261)
+1471894263453:#Transformations
+1471894263461:title     <- "Garfield Bleeding Risk Model"
+1471894273151:input <- list(age=70,hxhf="Yes",ap="No",sbp=130,country="USA",ckd="Yes")
+1471894278688:QQ <- vector("list",length(betaType))
+1471894278697:for(i in 1:length(betaType)){
+1471894278701:QQ[[ i ]] <- eval(parse(text = paste("input$", names(betaType)[i], sep="")))
+1471894278705:names(QQ[[ i ]]) <- names(betaType)[i]
+1471894278711:}
+1471894278717:cnames <- names(unlist(QQ))
+1471894278723:indx <- which(sapply(QQ, is.character))
+1471894278727:for (z in 1:length(indx)){
+1471894278732:QQ[[indx[z]]] <- unlist(lapply(QQ[indx[z]], checkandconvert ))
+1471894278735:}
+1471894278741:a <- unlist(QQ)
+1471894278745:for (zaz in 1:length(a)) {
+1471894278750:a[zaz] = applyTransformations(a[zaz])
+1471894278754:}
+1471894278762:b <- data.frame(as.list(a),stringsAsFactors=F)
+1471894280916:b
+1471894313324:c = b
+1471894316743:same              <- intersect(names(c),names(betas))
+1471894316751:same2             <- intersect(names(c),names(referencePoints))
+1471894319210:same
+1471894324867:as.matrix(c[same])
+1471894328388:(as.matrix(betas[same]))
+1471894347165:t(as.matrix(referencePoints[same2]))
+1471894351837:(as.matrix(betas[same2]))
+1471894366762:60*.037
+1471894373923:120*.00623
+1471894381761:2.22+.7476
+1471894387657:t(as.matrix(referencePoints[same2]))  %*% (as.matrix(betas[same2]))
+1471894391873:as.matrix(c[same])                 %*% (as.matrix(betas[same]))
+1471894479077:same              <- intersect(names(c),names(betas))
+1471894479083:same2             <- intersect(names(c),names(referencePoints))
+1471894479150:# this calculation is done in accordance with the PMML Specification
+1471894479153:r                 <- as.matrix(c[same])                 %*% (as.matrix(betas[same]))
+1471894479157:s                 <- t(as.matrix(referencePoints[same2]))  %*% (as.matrix(betas[same2]))
+1471894479160:S_t               <- baseHaz**exp(r-s)
+1471894482656:C_t               <- 1-S_t
+1471894485424:C_t
+1471894518221:time
+1471894686970:runApp('garfield-bleeding-work')
+1471894756909:upper
+1471894759827:lower
+1471894805778:eval(parse(text = paste("input$", names(upper)[i], sep="")))
+1471894811219:i=1
+1471894815524:eval(parse(text = paste("input$", names(upper)[i], sep="")))
+1471894821564:as.numeric(upper[i])
+1471894830545:(  eval(parse(text = paste("input$", names(upper)[i], sep="")))
+1471894830551:>
+1471894830556:as.numeric(upper[i]))
+1471894836162:(
+1471894836167:eval(parse(text = paste("input$", names(upper)[i], sep="")))
+1471894836173:<
+1471894836178:as.numeric(lower[i])
+1471894836183:)
+1471894891491:runApp('garfield-bleeding-work')
