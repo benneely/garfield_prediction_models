@@ -1,4 +1,4 @@
-# garfield_prediction_models
+# garfield_prediction_modelss
 ![logo](images/garfield.jpg)
 
 Flask Application to create a prediction model tool for the reduced models
