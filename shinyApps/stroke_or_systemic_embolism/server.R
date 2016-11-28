@@ -110,8 +110,8 @@ shinyServer(function(input, output, session) {
     LL[[2]] <- numericInput(inputId="age", 
                             label="Age (yrs. old)", 
                             step=1,
-                            min=18, 
-                            max=110, 
+                            min=19, 
+                            max=90, 
                             value=55) 
     LL[[3]] <- selectInput(inputId="bleed", 
                            label="Medical history of bleeding?",

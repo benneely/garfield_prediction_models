@@ -12,7 +12,7 @@ shinyUI(fluidPage(
       titlePanel(title="", windowTitle="GARFIELD-AF")
   ),
   headerPanel(
-    title=div(img(src="GARFIELD_AF_logo.png",width="180",height="50"), "Bleeding Risk Model", align="left"),
+    title=div(img(src="GARFIELD_AF_logo.png",width="180",height="50"), "Hemorrhagic Stroke or Major Bleed", align="left"),
     h4("Source Code")
   ),
   

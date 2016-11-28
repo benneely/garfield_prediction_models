@@ -12,7 +12,7 @@ shinyUI(fluidPage(
       titlePanel(title="", windowTitle="GARFIELD-AF")
   ),
   headerPanel(
-    title=div(img(src="GARFIELD_AF_logo.png",width="180",height="50"), "Ischemic Stroke or Systemic Embolism", align="left"),
+    title=div(img(src="GARFIELD_AF_logo.png",width="180",height="50"), "Non-hemorrhagic Stroke or Systemic Embolism", align="left"),
     h4("Source Code")
   ),
   
