@@ -103,19 +103,19 @@ shinyServer(function(input, output, session) {
 
     LL <- vector("list",8)
     
-    LL[[1]] <- numericInput(inputId="age", 
-                            label="Age at the time of diagnosis", 
-                            step=1,
-                            min=19, 
-                            max=90, 
-                            value=55) 
-    LL[[2]] <- numericInput(inputId="pulse", 
+    LL[[1]] <- sliderInput("age", 
+                            "Age at the time of diagnosis:", 
+                            min = 19, 
+                            max = 90, 
+                            value = 55, 
+                            step= 1)
+    LL[[2]] <- sliderInput(inputId="pulse", 
                             label="Pulse (bpm)", 
                             step=1,
                             min=30, 
                             max=160, 
                             value=75) 
-    LL[[3]] <- numericInput(inputId="sbp", 
+    LL[[3]] <- sliderInput(inputId="sbp", 
                             label="Current Systolic Blood Pressure (mm Hg)", 
                             step=1,
                             min=90, 
@@ -154,7 +154,7 @@ shinyServer(function(input, output, session) {
     ggplot(data=x2()) +
       geom_step(aes(x=Time,y=Risk), direction="hv",size=1, colour="#e41a1c")+
       scale_y_continuous( breaks = seq(0, 1, by = 0.1), limits = c(0,1), labels = percent) +
-      scale_x_continuous( breaks = seq(0, max(x2()$Time), by = round(max(x2()$Time)/9,digits=1)), limits = c(0,max(x2()$Time))) +
+      scale_x_continuous( breaks = c(0,30,90,180,365), limits = c(0,370)) +
       theme(panel.grid.major=element_blank(),
             legend.title=element_blank(),
             legend.position="top")+
@@ -171,8 +171,8 @@ shinyServer(function(input, output, session) {
   #==========================================
   output$text2 <- renderText({
     paste("A person with the constellation of risk factors given at the left has a ",
-          paste0(formatC(tail(x2()[which(x2()$Time<=320),]$Risk*100,n=1),format="f",digits=2),"%"),
-          " chance of experiencing a ",input$model," bleeding event at ", paste0(formatC(tail(320,n=1),format="f",digits=0)),
+          paste0(formatC(tail(x2()[which(x2()$Time<=365),]$Risk*100,n=1),format="f",digits=2),"%"),
+          " chance of experiencing ",input$model," death at ", paste0(formatC(tail(365,n=1),format="f",digits=0)),
           " days of follow-up.",
          # "To determine the risk at different points in time, use the mouse and hover over the risk line.",
           sep="")
