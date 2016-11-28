@@ -106,8 +106,8 @@ shinyServer(function(input, output, session) {
     LL[[1]] <- sliderInput(inputId="age", 
                             label="Age at the time of diagnosis", 
                             step=1,
-                            min=18, 
-                            max=110, 
+                            min=19, 
+                            max=90, 
                             value=55) 
     LL[[2]] <- selectInput(inputId="vascular_disease", 
                            label="History of coronary artery disease or peripheral vascular disease?",
