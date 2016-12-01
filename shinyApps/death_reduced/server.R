@@ -37,6 +37,7 @@ shinyServer(function(input, output, session) {
   #==========================================
   ## FOR QC PURPOSES ONLY:
   # input <- list(age=70,hxhf="Yes",ap="No",sbp=130,country="USA",ckd="Yes")
+  # input <- list("pulse"=90,"age"=80,"sbp"=100,"vascular_disease"="Yes","bleed"="Yes","heart_failure"="No","ckd"="Yes","oral_anti"="No")
   QQ <- reactive({
 
     if (is.null(input$age)) {
@@ -54,7 +55,7 @@ shinyServer(function(input, output, session) {
       }
       a <- unlist(QQ)
       for (zaz in 1:length(a)) {
-        a[zaz] = applyTransformations(a[zaz])
+        # a[zaz] = applyTransformations(a[zaz])
       }
       b <- data.frame(as.list(a),stringsAsFactors=F)
       return(b)
