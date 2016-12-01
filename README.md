@@ -1,7 +1,7 @@
 # garfield_prediction_modelss
 ![logo](images/garfield.jpg)
 
-Flask Application to create a prediction model tool for the reduced models
+Shiny Application to create a prediction model tool for the reduced models
 
 ## About
 GARFIELD is a pioneering outcomes research initiative sponsored and coordinated by the Thrombosis Research Institute. Our worldwide observational programmes enhance understanding of the burden of thrombosis and identify opportunities for the incorporation of innovations designed to improve safety, outcomes and utilization of healthcare resources.
