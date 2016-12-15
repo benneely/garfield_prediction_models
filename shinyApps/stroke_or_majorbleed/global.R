@@ -50,7 +50,7 @@ checkandconvert <- function(x) {
   #dict <- xmltop[["DataDictionary"]]
   referencePoints <- c("age"=60,"vascular_disease"=0,"ckd"=0)
   betaType <- c("age"="continuous","vascular_disease"="categorical","ckd"="categorical")
-  betas <- c("age"=0.042943,"vascular_disease"=0.42205,"ckd"=0.60985)
+  betas <- c("age"=0.0389958,"vascular_disease"=0.515013074,"ckd"=0.577378429)
   upper = c("age"=90) #c("age"=105,"sbp"=270,"dpb"=180)
   lower = c("age"=19) #c("age"=18,"sbp"=40,"dbp"=26)
   time <- c(0,1,2,3,4,5,6,9,10,11,12,13,15,16,18,20,21,23,24,26,29,30,31,32,34,35,36,39,40,42,46,47,48,49,51,52,54,56,57,59,65,68,69,70,71,72,74,75,78,80,82,83,84,85,86,88,89,90,93,

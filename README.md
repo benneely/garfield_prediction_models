@@ -1,4 +1,4 @@
-# garfield_prediction_modelss
+# garfield_prediction_models
 ![logo](images/garfield.jpg)
 
 Shiny Application to create a prediction model tool for the reduced models
