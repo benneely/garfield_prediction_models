@@ -126,7 +126,7 @@ shinyServer(function(input, output, session) {
                            choices=c("Yes","No"),
                            selected="No")
     LL[[6]] <- selectInput(inputId="other_region", 
-                           label="Australia, NewZealand, South Africa?",
+                           label="Australia, Egypt, South Africa?",
                            choices=c("Yes","No"),
                            selected="No")
     LL[[7]] <- selectInput(inputId="black", 
