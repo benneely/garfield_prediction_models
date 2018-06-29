@@ -154,7 +154,7 @@ shinyServer(function(input, output, session) {
       return(
     ggplot(data=x2()) +
       geom_step(aes(x=Time,y=Risk), direction="hv",size=1, colour="#e41a1c")+
-      scale_y_continuous( breaks = seq(0, 1, by = 0.1), limits = c(0,1), labels = percent) +
+      scale_y_continuous( breaks = seq(0, 0.9, by = 0.1), limits = c(0,0.9), labels = percent) +
       scale_x_continuous( breaks = c(0,30,90,180,365), limits = c(0,370)) +
       theme(panel.grid.major=element_blank(),
             legend.title=element_blank(),
