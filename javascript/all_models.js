@@ -131,4 +131,11 @@ function calculate_risk(parameter_estimate_object, input_object) {
                 )
             ))
         })
+    return cdf
 }
+
+//Example
+// ex will be the array that displays the risk trajectory over time and should equal the length of time array
+// ex = calculate_risk(death_reduced_parameter_estimates, data)
+// the last element of this array should equal the risk display in text under the plot
+// console.log(ex[ex.length-1])
