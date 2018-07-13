@@ -1,0 +1,27 @@
+{
+  "name": "garfield_prediction_models",
+  "version": "1.0.0",
+  "description": "demo scripts for garfield prediction models",
+  "main": "all_models.js",
+  "eslintConfig": {
+    "env": {"es6": true}
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benneely/garfield_prediction_models.git"
+  },
+  "keywords": [
+    "prediction",
+    "cox",
+    "ph"
+  ],
+  "author": "Ben Neely",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benneely/garfield_prediction_models/issues"
+  },
+  "homepage": "https://github.com/benneely/garfield_prediction_models#readme"
+}
