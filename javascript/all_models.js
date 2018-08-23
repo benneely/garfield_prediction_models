@@ -1,25 +1,32 @@
 let variable_formats = {
-    miua: 'Myocardial infarction or unstable angina or peripheral aortic or artery disease?',
+    age: 'Age',
+    sbp: 'Systolic Blood Pressure',
+    pulse: 'Pulse',
     hx_bleeding: 'Medical history of bleeding?',
     hx_heart_failure: 'Medical history of heart failure or an ejection fraction < 40? (If ejection fraction is not available, use medical history of heart failure only.)',
     chronic_kidney: 'Chronic kidney disease levels of III-V?',
     vitamin_k: 'At enrollment, patient is given or already taking a Vitamin K antagonist or Rivaroxaban or Apixaban or Endoxaban or Dibigatran?',
     hx_stroke: 'Medical history of stroke?',
-    a_e_sa: 'Australia, Egypt, South Africa?',
+    a_nz_sa: 'Australia, New Zealand, South Africa?',
     race: 'Race/Ethnicity.',
     hx_ca_pvd: 'History of coronary artery disease or peripheral vascular disease?',
-    egfr_60: 'eGFR<60 with eGFR estimated using the MDRD method?'
 }
 
 // Represents data lifted from UI and transformed into numerical format. For example
 // Yes=1, No=0, 'Caucasian, Hispanic/Latino, Asian'=0, 'Afro-Caribean, Mixed Race, Other
 // This should be all you need to collect to run all three models. This represents 1 patient to score
-let data = {
-    age: 70, pulse: 120, sbp: 110, miua: 0, hx_bleeding: 0, 
-    hx_heart_failure: 0, chronic_kidney: 0, vitamin_k: 0, hx_stroke: 0,
-    a_e_sa: 0, race: 0, hx_ca_pvd: 0,
-    egfr_60: 0
-}
+let data = [
+    {"obs":1,"id":1,"age":60,"pulse":80,"sbp":120,"hx_stroke":0,"hx_ca_pvd":0,"hx_bleeding":0,"hx_heart_failure":0,"chronic_kidney":0,"vitamin_k":0,"a_nz_sa":0,"race":0,"dthred_p":0.01558,"stroke_p":0.00866,"bleed_p":0.005511},
+    {"obs":2,"id":2,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":1,"hx_bleeding":1,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":0,"a_nz_sa":0,"race":0,"dthred_p":0.25359,"stroke_p":0.10732,"bleed_p":0.035301},
+    {"obs":3,"id":3,"age":35,"pulse":60,"sbp":100,"hx_stroke":0,"hx_ca_pvd":0,"hx_bleeding":0,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":1,"a_nz_sa":1,"race":1,"dthred_p":0.00397,"stroke_p":0.01505,"bleed_p":0.003707},
+    {"obs":4,"id":4,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":0,"hx_bleeding":1,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":0,"a_nz_sa":0,"race":0,"dthred_p":0.17692,"stroke_p":0.10732,"bleed_p":0.021245},
+    {"obs":5,"id":5,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":0,"hx_bleeding":1,"hx_heart_failure":1,"chronic_kidney":1,"vitamin_k":0,"a_nz_sa":0,"race":0,"dthred_p":0.34608,"stroke_p":0.14461,"bleed_p":0.021245},
+    {"obs":6,"id":6,"age":60,"pulse":80,"sbp":120,"hx_stroke":0,"hx_ca_pvd":0,"hx_bleeding":0,"hx_heart_failure":0,"chronic_kidney":0,"vitamin_k":1,"a_nz_sa":0,"race":0,"dthred_p":0.01024,"stroke_p":0.00485,"bleed_p":0.005511},
+    {"obs":7,"id":7,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":1,"hx_bleeding":1,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":1,"a_nz_sa":0,"race":0,"dthred_p":0.17449,"stroke_p":0.06146,"bleed_p":0.035301},
+    {"obs":8,"id":8,"age":35,"pulse":60,"sbp":100,"hx_stroke":0,"hx_ca_pvd":0,"hx_bleeding":0,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":1,"a_nz_sa":1,"race":1,"dthred_p":0.00397,"stroke_p":0.01505,"bleed_p":0.003707},
+    {"obs":9,"id":9,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":0,"hx_bleeding":1,"hx_heart_failure":0,"chronic_kidney":1,"vitamin_k":1,"a_nz_sa":0,"race":0,"dthred_p":0.11984,"stroke_p":0.06146,"bleed_p":0.021245},
+    {"obs":10,"id":10,"age":80,"pulse":90,"sbp":100,"hx_stroke":1,"hx_ca_pvd":0,"hx_bleeding":1,"hx_heart_failure":1,"chronic_kidney":1,"vitamin_k":1,"a_nz_sa":0,"race":0,"dthred_p":0.24307,"stroke_p":0.08358,"bleed_p":0.021245}
+]
 
 function sum_array(array) {
     return array.reduce((a,b) => a + b, 0)
@@ -88,7 +95,7 @@ let death_reduced_parameter_estimates = {
         age: 0.060208102,
         pulse: 0.008235567,
         sbp: -0.008211021,
-        miua: 0.406906988,
+        hx_ca_pvd: 0.406906988,
         hx_bleeding: 0.512334926,
         hx_heart_failure: 0.780055766,
         chronic_kidney: 0.554435057,
@@ -98,7 +105,7 @@ let death_reduced_parameter_estimates = {
         age: 60,
         pulse: 80,
         sbp: 120,
-        miua: 0,
+        hx_ca_pvd: 0,
         hx_bleeding: 0,
         hx_heart_failure: 0,
         chronic_kidney: 0,
@@ -140,7 +147,7 @@ let stroke_systemic_embolism_estimates = {
         hx_bleeding: 0.432357326,
         hx_heart_failure: 0.319129628,
         chronic_kidney: 0.574919171,
-        a_e_sa: 0.654249546,
+        a_nz_sa: 0.654249546,
         race: 0.671380382,
         vitamin_k: -0.582045773
     },
@@ -150,7 +157,7 @@ let stroke_systemic_embolism_estimates = {
         hx_bleeding: 0,
         hx_heart_failure: 0,
         chronic_kidney: 0,
-        a_e_sa: 0,
+        a_nz_sa: 0,
         race: 0,
         vitamin_k: 0
     }
@@ -179,12 +186,12 @@ let stroke_or_majorbleed_estimates = {
     betas: {
         age: 0.0389958,
         hx_ca_pvd: 0.515013074,
-        egfr_60: 0.577378429
+        chronic_kidney: 0.577378429
     },
     referencePoints: {
         age: 60,
         hx_ca_pvd: 0,
-        egfr_60: 0
+        chronic_kidney: 0
     }
 }
 
@@ -218,6 +225,18 @@ function calculate_risk(parameter_estimate_object, input_object) {
 
 //Example
 // ex will be the array that displays the risk trajectory over time and should equal the length of time array
+var testpreds = []
+for (var i=0; i<data.length; i++) {
+    ex = calculate_risk(death_reduced_parameter_estimates, data[i])
+    ex2 = calculate_risk(stroke_or_majorbleed_estimates, data[i])
+    ex3 = calculate_risk(stroke_systemic_embolism_estimates, data[i])
+    temp = {
+        "death": ex[ex.length-1],
+        "bleed": ex2[ex2.length-1],
+        "stroke": ex3[ex3.length-1]
+    }
+    testpreds.push(temp)
+}
 // ex = calculate_risk(death_reduced_parameter_estimates, data)
 // the last element of this array should equal the risk display in text under the plot
 // console.log(ex[ex.length-1])
